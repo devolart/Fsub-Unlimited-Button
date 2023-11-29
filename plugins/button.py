@@ -2,108 +2,91 @@
 # FROM File-Sharing-Man <https://github.com/mrismanaziz/File-Sharing-Man/>
 # t.me/SharingUserbot & t.me/Lunatic0de
 
-from config import FORCE_SUB_CHANNEL, FORCE_SUB_GROUP
+from config import FORCE_SUB
 from pyrogram.types import InlineKeyboardButton
 
 
 def start_button(client):
-    if not FORCE_SUB_CHANNEL and not FORCE_SUB_GROUP:
+    if not FORCE_SUB:
         buttons = [
             [
                 InlineKeyboardButton(text="ʜᴇʟᴘ & ᴄᴏᴍᴍᴀɴᴅs", callback_data="help"),
                 InlineKeyboardButton(text="ᴛᴜᴛᴜᴘ", callback_data="close"),
             ],
-        ]
-        return buttons
-    if not FORCE_SUB_CHANNEL and FORCE_SUB_GROUP:
-        buttons = [
-            [
-                InlineKeyboardButton(text="ɢʀᴏᴜᴘ", url=client.invitelink2),
-            ],
-            [
-                InlineKeyboardButton(text="ʜᴇʟᴘ & ᴄᴏᴍᴍᴀɴᴅs", callback_data="help"),
-                InlineKeyboardButton(text="ᴛᴜᴛᴜᴘ", callback_data="close"),
-            ],
-        ]
-        return buttons
-    if FORCE_SUB_CHANNEL and not FORCE_SUB_GROUP:
-        buttons = [
-            [
-                InlineKeyboardButton(text="ᴄʜᴀɴɴᴇʟ", url=client.invitelink),
-            ],
-            [
-                InlineKeyboardButton(text="ʜᴇʟᴘ & ᴄᴏᴍᴍᴀɴᴅs", callback_data="help"),
-                InlineKeyboardButton(text="ᴛᴜᴛᴜᴘ", callback_data="close"),
-            ],
-        ]
-        return buttons
-    if FORCE_SUB_CHANNEL and FORCE_SUB_GROUP:
-        buttons = [
-            [
-                InlineKeyboardButton(text="ʜᴇʟᴘ & ᴄᴏᴍᴍᴀɴᴅs", callback_data="help"),
-            ],
-            [
-                InlineKeyboardButton(text="ᴄʜᴀɴɴᴇʟ", url=client.invitelink),
-                InlineKeyboardButton(text="ɢʀᴏᴜᴘ", url=client.invitelink2),
-            ],
-            [InlineKeyboardButton(text="ᴛᴜᴛᴜᴘ", callback_data="close")],
         ]
         return buttons
 
+    dynamic_buttons = []
+    num_force_sub = len(FORCE_SUB)
+    
+    if num_force_sub <= 3:
+        dynamic_buttons.append([
+            InlineKeyboardButton(text=f"ᴊᴏɪɴ {key}", url=getattr(client, f'invitelink{key}'))
+            for key in FORCE_SUB.keys()
+        ])
+    else:
+        num_rows = num_force_sub // 3
+        num_extra_buttons = num_force_sub % 3
+
+        num_columns = 3 if num_extra_buttons == 0 else 2
+
+        for i in range(num_rows):
+            dynamic_buttons.append([
+                InlineKeyboardButton(text=f"ᴊᴏɪɴ {key}", url=getattr(client, f'invitelink{key}'))
+                for key in list(FORCE_SUB.keys())[i * num_columns:(i + 1) * num_columns]
+            ])
+
+        if num_extra_buttons > 0:
+            dynamic_buttons.append([
+                InlineKeyboardButton(text=f"ᴊᴏɪɴ {key}", url=getattr(client, f'invitelink{key}'))
+                for key in list(FORCE_SUB.keys())[num_rows * num_columns:]
+            ])
+
+    buttons = [
+        [
+            InlineKeyboardButton(text="ʜᴇʟᴘ & ᴄᴏᴍᴍᴀɴᴅs", callback_data="help"),
+        ],
+    ] + dynamic_buttons + [
+        [InlineKeyboardButton(text="ᴛᴜᴛᴜᴘ", callback_data="close")],
+    ]
+    return buttons
 
 def fsub_button(client, message):
-    if not FORCE_SUB_CHANNEL and FORCE_SUB_GROUP:
-        buttons = [
-            [
-                InlineKeyboardButton(text="ᴊᴏɪɴ ɢʀᴏᴜᴘ", url=client.invitelink2),
-            ],
-        ]
+    if FORCE_SUB:
+        dynamic_buttons = []
+        num_force_sub = len(FORCE_SUB)
+        
+        if num_force_sub <= 3:
+            dynamic_buttons.append([
+                InlineKeyboardButton(text=f"ᴊᴏɪɴ {key}", url=getattr(client, f'invitelink{key}'))
+                for key in FORCE_SUB.keys()
+            ])
+        else:
+            num_rows = num_force_sub // 3
+            num_extra_buttons = num_force_sub % 3
+
+            num_columns = 3 if num_extra_buttons == 0 else 2
+
+            for i in range(num_rows):
+                dynamic_buttons.append([
+                    InlineKeyboardButton(text=f"ᴊᴏɪɴ {key}", url=getattr(client, f'invitelink{key}'))
+                    for key in list(FORCE_SUB.keys())[i * num_columns:(i + 1) * num_columns]
+                ])
+
+            if num_extra_buttons > 0:
+                dynamic_buttons.append([
+                    InlineKeyboardButton(text=f"ᴊᴏɪɴ {key}", url=getattr(client, f'invitelink{key}'))
+                    for key in list(FORCE_SUB.keys())[num_rows * num_columns:]
+                ])
+
         try:
-            buttons.append(
-                [
-                    InlineKeyboardButton(
-                        text="ᴄᴏʙᴀ ʟᴀɢɪ",
-                        url=f"https://t.me/{client.username}?start={message.command[1]}",
-                    )
-                ]
-            )
+            dynamic_buttons.append([
+                InlineKeyboardButton(
+                    text="ᴄᴏʙᴀ ʟᴀɢɪ",
+                    url=f"https://t.me/{client.username}?start={message.command[1]}",
+                )
+            ])
         except IndexError:
             pass
-        return buttons
-    if FORCE_SUB_CHANNEL and not FORCE_SUB_GROUP:
-        buttons = [
-            [
-                InlineKeyboardButton(text="ᴊᴏɪɴ ᴄʜᴀɴɴᴇʟ", url=client.invitelink),
-            ],
-        ]
-        try:
-            buttons.append(
-                [
-                    InlineKeyboardButton(
-                        text="ᴄᴏʙᴀ ʟᴀɢɪ",
-                        url=f"https://t.me/{client.username}?start={message.command[1]}",
-                    )
-                ]
-            )
-        except IndexError:
-            pass
-        return buttons
-    if FORCE_SUB_CHANNEL and FORCE_SUB_GROUP:
-        buttons = [
-            [
-                InlineKeyboardButton(text="ᴊᴏɪɴ ᴄʜᴀɴɴᴇʟ", url=client.invitelink),
-                InlineKeyboardButton(text="ᴊᴏɪɴ ɢʀᴏᴜᴘ", url=client.invitelink2),
-            ],
-        ]
-        try:
-            buttons.append(
-                [
-                    InlineKeyboardButton(
-                        text="ᴄᴏʙᴀ ʟᴀɢɪ",
-                        url=f"https://t.me/{client.username}?start={message.command[1]}",
-                    )
-                ]
-            )
-        except IndexError:
-            pass
-        return buttons
+
+        return dynamic_buttons
