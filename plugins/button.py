@@ -18,29 +18,16 @@ def start_button(client):
 
     dynamic_buttons = []
     num_force_sub = len(FORCE_SUB)
-    
-    if num_force_sub <= 3:
-        dynamic_buttons.append([
-            InlineKeyboardButton(text=f"ᴊᴏɪɴ {key}", url=getattr(client, f'invitelink{key}'))
-            for key in FORCE_SUB.keys()
-        ])
-    else:
-        num_rows = num_force_sub // 3
-        num_extra_buttons = num_force_sub % 3
 
-        num_columns = 3 if num_extra_buttons == 0 else 2
+    current_row = []
+    for key in FORCE_SUB.keys():
+        current_row.append(InlineKeyboardButton(text=f"ᴊᴏɪɴ {key}", url=getattr(client, f'invitelink{key}')))
+        if len(current_row) == 3:
+            dynamic_buttons.append(current_row)
+            current_row = []
 
-        for i in range(num_rows):
-            dynamic_buttons.append([
-                InlineKeyboardButton(text=f"ᴊᴏɪɴ {key}", url=getattr(client, f'invitelink{key}'))
-                for key in list(FORCE_SUB.keys())[i * num_columns:(i + 1) * num_columns]
-            ])
-
-        if num_extra_buttons > 0:
-            dynamic_buttons.append([
-                InlineKeyboardButton(text=f"ᴊᴏɪɴ {key}", url=getattr(client, f'invitelink{key}'))
-                for key in list(FORCE_SUB.keys())[num_rows * num_columns:]
-            ])
+    if current_row:
+        dynamic_buttons.append(current_row)
 
     buttons = [
         [
@@ -55,29 +42,16 @@ def fsub_button(client, message):
     if FORCE_SUB:
         dynamic_buttons = []
         num_force_sub = len(FORCE_SUB)
-        
-        if num_force_sub <= 3:
-            dynamic_buttons.append([
-                InlineKeyboardButton(text=f"ᴊᴏɪɴ {key}", url=getattr(client, f'invitelink{key}'))
-                for key in FORCE_SUB.keys()
-            ])
-        else:
-            num_rows = num_force_sub // 3
-            num_extra_buttons = num_force_sub % 3
 
-            num_columns = 3 if num_extra_buttons == 0 else 2
+        current_row = []
+        for key in FORCE_SUB.keys():
+            current_row.append(InlineKeyboardButton(text=f"ᴊᴏɪɴ {key}", url=getattr(client, f'invitelink{key}')))
+            if len(current_row) == 3:
+                dynamic_buttons.append(current_row)
+                current_row = []
 
-            for i in range(num_rows):
-                dynamic_buttons.append([
-                    InlineKeyboardButton(text=f"ᴊᴏɪɴ {key}", url=getattr(client, f'invitelink{key}'))
-                    for key in list(FORCE_SUB.keys())[i * num_columns:(i + 1) * num_columns]
-                ])
-
-            if num_extra_buttons > 0:
-                dynamic_buttons.append([
-                    InlineKeyboardButton(text=f"ᴊᴏɪɴ {key}", url=getattr(client, f'invitelink{key}'))
-                    for key in list(FORCE_SUB.keys())[num_rows * num_columns:]
-                ])
+        if current_row:
+            dynamic_buttons.append(current_row)
 
         try:
             dynamic_buttons.append([
