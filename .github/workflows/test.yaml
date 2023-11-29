@@ -2,10 +2,6 @@ name: Manual Triggered Test
 
 on:
   workflow_dispatch:
-    inputs:
-      gist_raw_link:
-        description: 'Enter the raw link of the GitHub Gist file'
-        required: true
 
 jobs:
   test:
