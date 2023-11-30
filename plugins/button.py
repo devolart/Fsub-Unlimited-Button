@@ -2,7 +2,7 @@
 # FROM File-Sharing-Man <https://github.com/mrismanaziz/File-Sharing-Man/>
 # t.me/SharingUserbot & t.me/Lunatic0de
 
-from config import FORCE_SUB
+from config import FORCE_SUB, BUTTONS_PER_ROW, BUTTONS_JOIN_TEXT
 from pyrogram.types import InlineKeyboardButton
 
 
@@ -21,8 +21,8 @@ def start_button(client):
 
     current_row = []
     for key in FORCE_SUB.keys():
-        current_row.append(InlineKeyboardButton(text=f"ᴊᴏɪɴ {key}", url=getattr(client, f'invitelink{key}')))
-        if len(current_row) == 3:
+        current_row.append(InlineKeyboardButton(text=f"{BUTTONS_JOIN_TEXT} {key}", url=getattr(client, f'invitelink{key}')))
+        if len(current_row) == BUTTONS_PER_ROW:
             dynamic_buttons.append(current_row)
             current_row = []
 
@@ -45,8 +45,8 @@ def fsub_button(client, message):
 
         current_row = []
         for key in FORCE_SUB.keys():
-            current_row.append(InlineKeyboardButton(text=f"ᴊᴏɪɴ {key}", url=getattr(client, f'invitelink{key}')))
-            if len(current_row) == 3:
+            current_row.append(InlineKeyboardButton(text=f"{BUTTONS_JOIN_TEXT} {key}", url=getattr(client, f'invitelink{key}')))
+            if len(current_row) == BUTTONS_PER_ROW:
                 dynamic_buttons.append(current_row)
                 current_row = []
 
