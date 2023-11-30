@@ -53,7 +53,7 @@ while True:
 BUTTONS_PER_ROW = int(os.environ.get("BUTTONS_PER_ROW", "3"))
 
 # Tulisan joinnya mau gimana
-BUTTONS_JOIN_TEXT = int(os.environ.get("BUTTONS_JOIN_TEXT", "ᴊᴏɪɴ"))
+BUTTONS_JOIN_TEXT = os.environ.get("BUTTONS_JOIN_TEXT", "ᴊᴏɪɴ")
 
 TG_BOT_WORKERS = int(os.environ.get("TG_BOT_WORKERS", "4"))
 
