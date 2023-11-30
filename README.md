@@ -48,6 +48,8 @@ Gunakan bot ini dengan risiko Anda sendiri, dan gunakan bot ini dengan bijak.
 * `START_MESSAGE` Opsional: Pesan /start memulai awalan ke bot, Gunakan <a href='https://github.com/mrismanaziz/File-Sharing-Man/blob/main/README.md#start_message'>format</a> parsemode HTML 
 * `FORCE_SUB_MESSAGE` Opsional: Pesan Paksa Subscribe bot, Gunakan Format parsemode HTML
 * `FORCE_SUB1`, `FORCE_SUB2`, `FORCE_SUB3`, `FORCE_SUB4`, `FORCE_SUB5`, dst: Masukan ID dari Channel dan Group Untuk Wajib Subscribenya
+* `BUTTONS_PER_ROW` Opsional: Maksimal jumlah button per baris (untuk unlimited button). Default `3`
+* `BUTTONS_JOIN_TEXT` Opsional: Isi tulisan button untuk join (untuk unlimited button). Default `ᴊᴏɪɴ`
 
 ### Extra Variables
 
