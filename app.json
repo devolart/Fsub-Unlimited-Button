@@ -39,7 +39,16 @@
     },
     "FORCE_SUB1": {
       "description": "Masukan ID dari Channel Atau Group Untuk Wajib Subscribenya. Kosongi kalau tidak ingin diisi. Untuk FORCE_SUB2, FORCE_SUB3, dst isi sendiri env nya",
-      "value": "0",
+      "required": false
+    },
+    "BUTTONS_PER_ROW": {
+      "description": "Maksimal banyak button per baris (untuk unlimited button). Kalau bingung, isi 3 aja",
+      "value": "3",
+      "required": false
+    },
+    "BUTTONS_JOIN_TEXT": {
+      "description": "Isi tulisan button (untuk unlimited button). Kalau bingung, gak usah diganti",
+      "value": "ᴊᴏɪɴ",
       "required": false
     },
     "START_MESSAGE": {

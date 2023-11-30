@@ -49,6 +49,12 @@ while True:
     FORCE_SUB[FORCE_SUB_COUNTER] = int(value)
     FORCE_SUB_COUNTER += 1
 
+# Berapa baris maunya
+BUTTONS_PER_ROW = int(os.environ.get("BUTTONS_PER_ROW", "3"))
+
+# Tulisan joinnya mau gimana
+BUTTONS_JOIN_TEXT = os.environ.get("BUTTONS_JOIN_TEXT", "ᴊᴏɪɴ")
+
 TG_BOT_WORKERS = int(os.environ.get("TG_BOT_WORKERS", "4"))
 
 # Pesan Awalan /start
