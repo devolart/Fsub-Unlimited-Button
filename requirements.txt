@@ -8,3 +8,5 @@ Pyromod==1.5
 speedtest-cli
 sqlalchemy==1.3.23
 TgCrypto
+flask
+flask_restful
