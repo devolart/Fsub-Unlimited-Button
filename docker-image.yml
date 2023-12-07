@@ -1,0 +1,28 @@
+name: Build and Push Docker Image
+
+on:
+  workflow_dispatch:  # This event triggers the workflow manually
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    env:
+      DOCKER_IMAGE_NAME: ${{ secrets.DOCKER_IMAGE_NAME }}
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Login to Docker Hub
+      run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Build Docker image
+      run: |
+        docker build -t $DOCKER_IMAGE_NAME:${{ github.sha }} .
+        docker tag $DOCKER_IMAGE_NAME:${{ github.sha }} $DOCKER_IMAGE_NAME:latest
+
+    - name: Push Docker image
+      run: |
+        docker push $DOCKER_IMAGE_NAME:${{ github.sha }}
+        docker push $DOCKER_IMAGE_NAME:latest
