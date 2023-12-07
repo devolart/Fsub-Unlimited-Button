@@ -5,4 +5,5 @@
 # t.me/SharingUserbot & t.me/Lunatic0de
 
 # start
+python3 web.py &
 python3 main.py
